@@ -2,32 +2,36 @@ import React, { Component } from 'react';
 
 class Counter extends Component {
     state = {
-        number: this.props.number
+        number: JSON.parse(localStorage.getItem('counter')) || this.props.number
     }
 
-    inc1(){
-        this.setState({ number: this.state.number + 1 })
+    saveNumber(){
+        localStorage.setItem('counter', JSON.stringify(this.state.number))
     }
 
-    dec1(){
-        this.setState({ number: this.state.number - 1 })
+    inc1 = () => {
+        this.setState({number: this.state.number + 1})
     }
 
-    inc5(){
-        this.setState({ number: this.state.number + 5 })
+    dec1 = () => {
+        this.setState({number: this.state.number - 1})
     }
 
-    dec5(){
-        this.setState({ number: this.state.number - 5 })
+    inc5 = () => {
+        this.setState({number: this.state.number + 5})
     }
 
-    reset(){
+    dec5 = () => {
+        this.setState({number: this.state.number - 5})
+    }
+
+    reset = () => {
         this.setState({number: this.props.number})
     }
 
-
-
     render() {
+        this.saveNumber()
+
         return (
             <div>
                 <h1>
@@ -55,7 +59,7 @@ class Counter extends Component {
                     - 5
                 </button>
                 <button
-                    onClick={() => this.reset}
+                    onClick={this.reset}
                 >
                     Reset
                 </button>
